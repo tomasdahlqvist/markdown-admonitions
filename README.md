@@ -1,71 +1,70 @@
-# fenced-div README
+# Markdown Admonitions
 
-This is the README for your extension "fenced-div". After writing up a brief description, we recommend including the following sections.
+Enables Docusaurus-style admonitions in the VS Code preview.
 
 ## Features
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+Several static site generators for documentation including Docusaurus have support for informational hints in the documentation. This extension allows for the preview to show the Docusaurus style admonitions.
 
-For example if there is an image subfolder under your extension project workspace:
+An example is 
 
-\!\[feature X\]\(images/feature-x.png\)
+```
+:::note
+Remember, the best time to plant a tree was 20 years ago. The second best time is now. So, plant that code!
+:::
+```
 
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+This and the other divs will be displayed like this in dark mode in VS Code:
+
+![Dark mode sample](images/dark-mode-sample.png)
+
+
+The markdown for the four divs will be shown like above if the extension is enabled. Otherwise they will be four paragraphs of text.
+
+:::note
+Remember, the best time to plant a tree was 20 years ago. The second best time is now. So, plant that code!
+:::
+
+:::tip
+Did you know? The first rule of programming is that there are no rules. Just kidding, please follow best practices.
+:::
+
+:::info
+Fun fact: The first computer bug was an actual bug. A moth got trapped in a relay of a Mark II computer in 1947.
+:::
+
+:::warning
+Beware of the programmer who carries a screwdriver. Their debugging might just get a little too physical.
+:::
+
+:::danger
+Danger! Danger! Too much coffee can lead to seeing code in your dreams. Or is that a feature?
+:::
+
+Additional info at [Docusaurus](https://docusaurus.io/docs/markdown-features/admonitions).
+
+Based on [markdown-it](https://github.com/markdown-it/markdown-it) and [markdown-it-container](https://github.com/markdown-it/markdown-it-container).
 
 ## Requirements
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+Runs in Visual Studio Code.
 
 ## Extension Settings
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
-
-For example:
-
 This extension contributes the following settings:
 
-* `myExtension.enable`: Enable/disable this extension.
-* `myExtension.thing`: Set to `blah` to do something.
+* `markdownAdmonitions.enable`: Enable/disable this extension.
 
 ## Known Issues
 
-Calling out known issues can help limit users opening duplicate issues against your extension.
+None.
 
 ## Release Notes
 
-Users appreciate release notes as you update your extension.
+### 0.0.2
 
-### 1.0.0
-
-Initial release of ...
-
-### 1.0.1
-
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
+Switched to markdown-it-container from markdown-it-fence
 
 ---
 
-## Following extension guidelines
-
-Ensure that you've read through the extensions guidelines and follow the best practices for creating your extension.
-
-* [Extension Guidelines](https://code.visualstudio.com/api/references/extension-guidelines)
-
-## Working with Markdown
-
-You can author your README using Visual Studio Code. Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux).
-* Toggle preview (`Shift+Cmd+V` on macOS or `Shift+Ctrl+V` on Windows and Linux).
-* Press `Ctrl+Space` (Windows, Linux, macOS) to see a list of Markdown snippets.
-
-## For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy!**
+Why three dashes? Is this hidden in the preview?
