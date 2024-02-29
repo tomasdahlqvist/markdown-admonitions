@@ -3,9 +3,10 @@
   "displayName": "Markdown Admonitions",
   "description": "Adds support for Docusaurus style fenced divs to the markdown preview.",
   "version": "0.0.2",
-  "publisher": "Tomas Dahlqvist",
+  "publisher": "tomasdahlqvist",
   "license": "MIT",
   "icon": "icon.png",
+  "pricing": "Free",
   "repository": {
     "type": "git",
     "url": "https://github.com/tomasdahlqvist/markdown-admonitions.git"

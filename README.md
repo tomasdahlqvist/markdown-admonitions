@@ -10,7 +10,8 @@ An example is
 
 ```
 :::note
-Remember, the best time to plant a tree was 20 years ago. The second best time is now. So, plant that code!
+Remember, the best time to plant a tree was 20 years ago.
+The second best time is now. So, plant that code!
 :::
 ```
 
@@ -64,7 +65,3 @@ None.
 ### 0.0.2
 
 Switched to markdown-it-container from markdown-it-fence
-
----
-
-Why three dashes? Is this hidden in the preview?
