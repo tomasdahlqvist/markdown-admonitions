@@ -6,10 +6,8 @@ export function activate(context: vscode.ExtensionContext) {
     return {
         extendMarkdownIt(md: MarkdownIt) {
             const config = vscode.workspace.getConfiguration('markdownAdmonitions');
-            // Get the current color theme kind
-            const darkTheme = vscode.window.activeColorTheme.kind === vscode.ColorThemeKind.Dark;
             if (config.get('enable') === true) {
-                return markdownItAdmonition(md, darkTheme);
+                return markdownItAdmonition(md);
             }
             else {
                 return md;
@@ -20,13 +18,16 @@ export function activate(context: vscode.ExtensionContext) {
 
 const match_regexp = /^(note|tip|info|warning|danger)(\[[^\]]*\])?$/;
 
-export function markdownItAdmonition(md: MarkdownIt, darkTheme: boolean = true) {
+export function markdownItAdmonition(md: MarkdownIt) {
     return md.use(markdownItContainer, 'admonition-block', {
         validate: function(params: any) {
             return params.trim().match(match_regexp);
         },
         render: function(tokens : any, idx : any) {
             if (tokens[idx].nesting === 1) {
+
+                // Get the current color theme kind
+                const darkTheme = vscode.window.activeColorTheme.kind === vscode.ColorThemeKind.Dark;
 
                 // Get the type and title from the info string
                 const match = tokens[idx].info.trim().match(match_regexp);
