@@ -2,7 +2,7 @@
   "name": "markdown-admonitions",
   "displayName": "Markdown Admonitions",
   "description": "Adds support for Docusaurus style fenced divs to the markdown preview.",
-  "version": "0.0.2",
+  "version": "0.5.0",
   "publisher": "tomasdahlqvist",
   "license": "MIT",
   "icon": "icon.png",

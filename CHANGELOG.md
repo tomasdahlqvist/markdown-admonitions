@@ -1,9 +1,7 @@
 # Change Log
 
-All notable changes to the "markdown-admonitions" extension will be documented in this file.
-
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
-## [Unreleased]
+## [0.5.0] - 2024-03-04
 
 - Initial release
