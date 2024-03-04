@@ -3,7 +3,7 @@ import * as MarkdownIt from 'markdown-it';
 import * as extension from '../extension';
 import * as vscode from 'vscode';
 
-const md = extension.markdownItAdmonition(new MarkdownIt(), true);
+const md = extension.markdownItAdmonition(new MarkdownIt());
 
 suite('Extension Test Suite', () => {
 
