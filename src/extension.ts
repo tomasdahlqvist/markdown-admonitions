@@ -2,10 +2,20 @@ import * as vscode from 'vscode';
 import * as MarkdownIt from 'markdown-it';
 import * as markdownItContainer from 'markdown-it-container';
 
+const configSection = 'markdownAdmonitions';
+
 export function activate(context: vscode.ExtensionContext) {
+
+    // On Mac there is no automatic call to render when the theme changes, so we need to manually refresh the preview
+    context.subscriptions.push(vscode.workspace.onDidChangeConfiguration(e => {
+        if (e.affectsConfiguration(configSection) || e.affectsConfiguration('workbench.colorTheme')) {
+            vscode.commands.executeCommand('markdown.preview.refresh');
+        }
+    }));
+
     return {
         extendMarkdownIt(md: MarkdownIt) {
-            const config = vscode.workspace.getConfiguration('markdownAdmonitions');
+            const config = vscode.workspace.getConfiguration(configSection);
             if (config.get('enable') === true) {
                 return markdownItAdmonition(md);
             }
