@@ -1,0 +1,45 @@
+.markdown-body .tip {
+    background-color: #f0f9eb; /* faint green background */
+    border-radius: 10px; /* rounded corners */
+    border-left: 10px solid #006400; /* deep green line on the left side */
+    padding: 1em;
+    margin-bottom: 1em;
+    position: relative;
+  }
+  
+  .markdown-body .tip::before {
+    content: "💡 TIP"; /* light bulb and the word TIP */
+    font-weight: bold;
+    display: block;
+    margin-bottom: 10px;
+  }
+  .markdown-body .info {
+    background-color: #adc1ec;
+    border-radius: 10px; /* rounded corners */
+    border-left: 10px solid #006400; 
+    padding: 1em;
+    margin-bottom: 1em;
+    position: relative;
+  }
+  
+  .markdown-body .info::before {
+    content: "ℹ️ INFO"; 
+    font-weight: bold;
+    display: block;
+    margin-bottom: 10px;
+  }
+  .markdown-body .warning {
+    background-color: #e07ba5; 
+    border-radius: 10px; /* rounded corners */
+    border-left: 10px solid #006400;
+    padding: 1em;
+    margin-bottom: 1em;
+    position: relative;
+  }
+  
+  .markdown-body .warning::before {
+    content: "⚠️ WARNING"; 
+    font-weight: bold;
+    display: block;
+    margin-bottom: 10px;
+  }
