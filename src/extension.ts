@@ -27,6 +27,9 @@ export function activate(context: vscode.ExtensionContext) {
     };
 }
 
+const darkTheme = () => vscode.window.activeColorTheme.kind === vscode.ColorThemeKind.Dark;
+
+// Docusaurus keywords plus mkdocs at the end:
 const match_regexp = /^(note|tip|info|warning|danger)(\[[^\]]*\])?$/;
 
 export function markdownItAdmonition(md: MarkdownIt) {
@@ -35,10 +38,8 @@ export function markdownItAdmonition(md: MarkdownIt) {
             return params.trim().match(match_regexp);
         },
         render: function(tokens : any, idx : any) {
-            if (tokens[idx].nesting === 1) {
 
-                // Get the current color theme kind
-                const darkTheme = vscode.window.activeColorTheme.kind === vscode.ColorThemeKind.Dark;
+            if (tokens[idx].nesting === 1) {
 
                 // Get the type and title from the info string
                 const match = tokens[idx].info.trim().match(match_regexp);
@@ -48,7 +49,7 @@ export function markdownItAdmonition(md: MarkdownIt) {
                 const title = match[2] ? match[2].slice(1, -1) : type;
 
                 // Set the class of the div based on the current theme
-                const className = darkTheme ? `${type}` : `${type}-light`;
+                const className = darkTheme() ? `${type} admonition` : `${type} light admonition`;
 
                 // opening tag
                 return `<div class="${className}"><div class="admonition-title">${title}</div>`;
@@ -58,7 +59,20 @@ export function markdownItAdmonition(md: MarkdownIt) {
             }
         }
     });
-    md.use(markdownItAdmon, {});
 
-    return md;
+    //probably not necessary, could hide a problem with the markdown-it-admon plugin
+    const proxy = (tokens:any, idx:any, options:any, env:any, self:any) => self.renderToken(tokens, idx, options);
+    const defaultAdmonOpenRenderer = md.renderer.rules.admonition_open || proxy;
+
+    md.use(markdownItAdmon, {
+    });
+
+    md.renderer.rules.admonition_open = function(tokens, idx, options, env, self) {
+        if ( !darkTheme()) {
+            tokens[idx].attrJoin("class", "light");
+        }
+        return defaultAdmonOpenRenderer(tokens, idx, options, env, self);
+     };
+
+     return md;
 };

@@ -1,0 +1,196 @@
+/* Common styles for all admonitions */
+.markdown-body .admonition {
+  border-radius: 10px;
+  padding: 1em;
+  margin-bottom: 1em;
+  position: relative;
+}
+
+.markdown-body .admonition-title {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+}
+
+/* Unknown MkDocs displayed as info, unknown Docusaurus are not matched */
+.markdown-body .admonition-title::before {
+  content: "ℹ️ ";
+}
+.markdown-body .admonition {
+  background-color: #193d47;
+  border-left: 10px solid #4cb3d4; 
+}
+.markdown-body .admonition.light {
+  background-color: #e0f8ff;
+  border-left: 10px solid #00a0c0;
+}
+
+/* Icons for admonition titles */
+.markdown-body .note .admonition-title::before {
+  content: "🗒️ ";
+}
+
+.markdown-body .tip .admonition-title::before {
+  content: "💡 ";
+}
+
+.markdown-body .info .admonition-title::before {
+  content: "ℹ️ ";
+}
+
+.markdown-body .warning .admonition-title::before {
+  content: "⚠️ ";
+}
+
+.markdown-body .danger .admonition-title::before {
+  content: "🔥 ";
+}
+
+.markdown-body .abstract .admonition-title::before {
+  content: "📄 ";
+}
+
+.markdown-body .success .admonition-title::before {
+  content: "✅ ";
+}
+
+.markdown-body .question .admonition-title::before {
+  content: "❓ ";
+}
+
+.markdown-body .failure .admonition-title::before {
+  content: "❌ ";
+}
+
+.markdown-body .bug .admonition-title::before {
+  content: "🐛 ";
+}
+
+.markdown-body .example .admonition-title::before {
+  content: "📘 ";
+}
+
+.markdown-body .quote .admonition-title::before {
+  content: "💬 ";
+}
+
+/* Background and border colors for dark theme */
+.markdown-body .note {
+  background-color: #474748; 
+  border-left: 10px solid #d4d5d8;
+}
+
+.markdown-body .tip {
+  background-color: #003100;
+  border-left: 10px solid #009400;
+}
+
+.markdown-body .info {
+  background-color: #193d47;
+  border-left: 10px solid #4cb3d4; 
+}
+
+.markdown-body .warning {
+  background-color: #4d3800; 
+  border-left: 10px solid #e6a700;
+}
+
+.markdown-body .danger {
+  background-color: #4b1113; 
+  border-left: 10px solid #e13238;
+}
+
+.markdown-body .abstract {
+  background-color: #00b0ff;
+  border-left: 10px solid #e5f7ff;
+}
+
+.markdown-body .success {
+  background-color: #00c853;
+  border-left: 10px solid #e5f9ed;
+}
+
+.markdown-body .question {
+  background-color: #193d47;
+  border-left: 10px solid #4cb3d4;
+}
+
+.markdown-body .failure {
+  background-color: #4b1113;
+  border-left: 10px solid #e13238;
+}
+
+.markdown-body .bug {
+  background-color: #f50057;
+  border-left: 10px solid #fee5ee;
+}
+
+.markdown-body .example {
+  background-color: #7c4dff;
+  border-left: 10px solid #f2edff;
+}
+
+.markdown-body .quote {
+  background-color: #474748;
+  border-left: 10px solid #d4d5d8;
+}
+
+/* Background and border colors for light theme */
+.markdown-body .note.light {
+  background-color: #f0f0f0;
+  border-left: 10px solid #a0a0a0;
+}
+.markdown-body .tip.light {
+  background-color: #e0f2e0;
+  border-left: 10px solid #008000;
+}
+
+.markdown-body .info.light {
+  background-color: #e0f8ff;
+  border-left: 10px solid #00a0c0;
+}
+
+.markdown-body .warning.light {
+    background-color: #fff8e0;
+  border-left: 10px solid #e6a700;
+}
+.markdown-body .danger.light {
+  background-color: #ffe0e0;
+  border-left: 10px solid #e13238;
+}
+
+.markdown-body .abstract.light {
+    background-color: #e5f7ff;
+  border-left: 10px solid #00b0ff;
+}
+
+.markdown-body .success.light{
+  background-color: #e5f9ed;
+  border-left: 10px solid #00c853;
+}
+
+.markdown-body .question.light {
+  background-color: #effce7;
+  border-left: 10px solid #00a0c0;
+}
+
+.markdown-body .failure.light {
+  background-color: #ffe0e0;
+  border-left: 10px solid #e13238;
+}
+
+.markdown-body .bug.light {
+  background-color: #fee5ee;
+  border-left: 10px solid #f50057;
+}
+
+.markdown-body .example.light {
+  background-color: #f2edff;
+  border-left: 10px solid #7c4dff;
+}
+
+.markdown-body .quote.light {
+  background-color: #f0f0f0;
+  border-left: 10px solid #a0a0a0;
+}

@@ -2,6 +2,10 @@
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
+## [0.7.0] - 2025-01-17
+
+- Attempting more complete support of MkDocs exclamations
+
 ## [0.6.3] - 2025-01-15
 
 - Added support for exclamation marks !!!, MkDocs style
