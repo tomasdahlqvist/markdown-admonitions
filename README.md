@@ -21,6 +21,9 @@ The second best time is now. So, plant that code!
 ```MkDocs
 !!! note
     *here be dragons*
+
+??? note
+    This is hidden unless expanded.
 ```
 
 This and the other divs will be displayed like this in dark mode in VS Code:

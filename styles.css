@@ -1,3 +1,22 @@
+
+summary.admonition-title {
+  position: relative;
+}
+summary.admonition-title::marker {
+  content: none;
+}
+summary.admonition-title::after {
+  content: '▶';
+}
+summary.admonition-title::after {
+    position: absolute;
+    right: 0.5rem;
+  }
+[open] summary.admonition-title::after {
+  transform: rotate(90deg);
+  transform-origin: 50% 50%;
+}
+
 /* Common styles for all admonitions */
 .markdown-body .admonition {
   border-radius: 10px;

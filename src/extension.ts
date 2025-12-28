@@ -1,7 +1,7 @@
 import * as vscode from 'vscode';
 import * as MarkdownIt from 'markdown-it';
 import * as markdownItContainer from 'markdown-it-container';
-import * as markdownItAdmon from 'markdown-it-admon';
+import * as markdownItAdmon from 'markdown-it-admon-collapsible';
 
 const configSection = 'markdownAdmonitions';
 
@@ -52,7 +52,7 @@ export function markdownItAdmonition(md: MarkdownIt) {
                 const className = darkTheme() ? `${type} admonition` : `${type} light admonition`;
 
                 // opening tag
-                return `<div class="${className}"><div class="admonition-title">${title}</div>`;
+                return `<div class="${className}"><p class="admonition-title">${title}</p>`;
             } else {
                 // closing tag
                 return '</div>\n';
@@ -67,12 +67,19 @@ export function markdownItAdmonition(md: MarkdownIt) {
     md.use(markdownItAdmon, {
     });
 
+    md.renderer.rules.collapsible_open = function(tokens, idx, options, env, self) {
+        if ( !darkTheme()) {
+            tokens[idx].attrJoin("class", "light");
+        }
+        return defaultAdmonOpenRenderer(tokens, idx, options, env, self);
+    };
+
     md.renderer.rules.admonition_open = function(tokens, idx, options, env, self) {
         if ( !darkTheme()) {
             tokens[idx].attrJoin("class", "light");
         }
         return defaultAdmonOpenRenderer(tokens, idx, options, env, self);
-     };
+    };
 
-     return md;
+    return md;
 };

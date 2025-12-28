@@ -2,9 +2,14 @@
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
+## [0.8.0] - 2025-12-29
+
+- Using the same styles for ::: and !!!.
+- Added support for ??? and ???+
+
 ## [0.7.1] - 2025-01-21
 
-Problem with styles file fixed
+- Problem with styles file fixed
 
 ## [0.7.0] - 2025-01-17
 

@@ -1,5 +1,7 @@
 # Examples
 
+<!-- spellcheck-off -->
+
 :::note
 Remember, the best time to plant a tree was 20 years ago. The second best time is now. So, plant that code!
 :::
@@ -51,82 +53,99 @@ Danger! Danger! Too much coffee can lead to seeing code in your dreams. Or is th
         !!! danger in my infancy
             Red and yellow then came to be
 
+## Collapsible blocks
+
+When an admonition block is started with ??? instead of !!!, the admonition is rendered as an expandable block with a small toggle on the right side:
+
+```markdown
+??? note
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla et euismod
+    nulla. Curabitur feugiat, tortor non consequat finibus, justo purus auctor
+    massa, nec semper lorem quam in massa.
+```
+
+??? note
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla et euismod
+    nulla. Curabitur feugiat, tortor non consequat finibus, justo purus auctor
+    massa, nec semper lorem quam in massa.
+
+Adding a + after the ??? token renders the block expanded:
+
+```markdown
+???+ note
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla et euismod
+    nulla. Curabitur feugiat, tortor non consequat finibus, justo purus auctor
+    massa, nec semper lorem quam in massa.
+```
+
+???+ note
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla et euismod
+    nulla. Curabitur feugiat, tortor non consequat finibus, justo purus auctor
+    massa, nec semper lorem quam in massa.
+
 ## Samples from MkDocs
 
 !!! note
-
     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla et
     euismod nulla. Curabitur feugiat, tortor non consequat finibus, justo
     purus auctor massa, nec semper lorem quam in massa.
 
 !!! abstract
-
     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla et
     euismod nulla. Curabitur feugiat, tortor non consequat finibus, justo
     purus auctor massa, nec semper lorem quam in massa.
 
 !!! info
-
     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla et
     euismod nulla. Curabitur feugiat, tortor non consequat finibus, justo
     purus auctor massa, nec semper lorem quam in massa.
 
 !!! tip
-
     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla et
     euismod nulla. Curabitur feugiat, tortor non consequat finibus, justo
     purus auctor massa, nec semper lorem quam in massa.
 
 !!! success
-
     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla et
     euismod nulla. Curabitur feugiat, tortor non consequat finibus, justo
     purus auctor massa, nec semper lorem quam in massa.
 
 !!! question
-
     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla et
     euismod nulla. Curabitur feugiat, tortor non consequat finibus, justo
     purus auctor massa, nec semper lorem quam in massa.
 
 !!! warning
-
     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla et
     euismod nulla. Curabitur feugiat, tortor non consequat finibus, justo
     purus auctor massa, nec semper lorem quam in massa.
 
 !!! failure
-
     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla et
     euismod nulla. Curabitur feugiat, tortor non consequat finibus, justo
     purus auctor massa, nec semper lorem quam in massa.
 
 !!! danger
-
     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla et
     euismod nulla. Curabitur feugiat, tortor non consequat finibus, justo
     purus auctor massa, nec semper lorem quam in massa.
 
 !!! bug
-
     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla et
     euismod nulla. Curabitur feugiat, tortor non consequat finibus, justo
     purus auctor massa, nec semper lorem quam in massa.
 
 !!! example
-
     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla et
     euismod nulla. Curabitur feugiat, tortor non consequat finibus, justo
     purus auctor massa, nec semper lorem quam in massa.
 
 !!! quote
-
     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla et
     euismod nulla. Curabitur feugiat, tortor non consequat finibus, justo
     purus auctor massa, nec semper lorem quam in massa.
 
 !!! unknown
-
     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla et
     euismod nulla. Curabitur feugiat, tortor non consequat finibus, justo
     purus auctor massa, nec semper lorem quam in massa.
