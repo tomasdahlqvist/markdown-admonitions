@@ -2,7 +2,7 @@
   "name": "markdown-admonitions",
   "displayName": "Markdown Admonitions",
   "description": "Adds support for Docusaurus style fenced divs to the markdown preview.",
-  "version": "0.8.0",
+  "version": "0.9.0",
   "publisher": "tomasdahlqvist",
   "license": "MIT",
   "icon": "icon.png",
@@ -46,7 +46,11 @@
         "markdownAdmonitions.mode": {
           "type": "string",
           "default": "relaxed",
-          "enum": ["relaxed", "strict-docusaurus", "strict-mkdocs"],
+          "enum": [
+            "relaxed",
+            "strict-docusaurus",
+            "strict-mkdocs"
+          ],
           "description": "Admonition rendering mode: relaxed (default), strict-docusaurus, or strict-mkdocs."
         }
       }
