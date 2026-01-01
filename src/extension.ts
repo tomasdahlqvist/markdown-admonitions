@@ -9,20 +9,17 @@ export function activate(context: vscode.ExtensionContext) {
 
     // On Mac there is no automatic call to render when the theme changes, so we need to manually refresh the preview
     context.subscriptions.push(vscode.workspace.onDidChangeConfiguration(e => {
-        if (e.affectsConfiguration(configSection) || e.affectsConfiguration('workbench.colorTheme')) {
+        if (
+            e.affectsConfiguration(configSection) ||
+            e.affectsConfiguration('workbench.colorTheme')
+        ) {
             vscode.commands.executeCommand('markdown.preview.refresh');
         }
     }));
 
     return {
         extendMarkdownIt(md: MarkdownIt) {
-            const config = vscode.workspace.getConfiguration(configSection);
-            if (config.get('enable') === true) {
-                return markdownItAdmonition(md);
-            }
-            else {
-                return md;
-            }
+            return markdownItAdmonition(md);
         }
     };
 }
@@ -33,28 +30,33 @@ const darkTheme = () => vscode.window.activeColorTheme.kind === vscode.ColorThem
 const match_regexp = /^(note|tip|info|warning|danger)(\[[^\]]*\])?$/;
 
 export function markdownItAdmonition(md: MarkdownIt) {
+    // Register admonition-block container with dynamic validation
     md.use(markdownItContainer, 'admonition-block', {
         validate: function(params: any) {
-            return params.trim().match(match_regexp);
+            const config = vscode.workspace.getConfiguration(configSection);
+            const enabled = config.get('enable', true);
+            const mode = config.get('mode', 'relaxed');
+            if (!enabled) {
+                return false;
+            }
+            if (mode === 'relaxed') {
+                return params.trim().match(match_regexp);
+            } else if (mode === 'strict-docusaurus') {
+                return ['note','tip','info','warning','danger'].includes(params);
+            } else if (mode === 'strict-mkdocs') {
+                return false;
+            } else {
+                return params.trim().match(match_regexp);
+            }
         },
         render: function(tokens : any, idx : any) {
-
             if (tokens[idx].nesting === 1) {
-
-                // Get the type and title from the info string
                 const match = tokens[idx].info.trim().match(match_regexp);
-                const type = match[1];
-
-                // Use the custom title if provided, otherwise use the type as the title
-                const title = match[2] ? match[2].slice(1, -1) : type;
-
-                // Set the class of the div based on the current theme
+                const type = match ? match[1] : tokens[idx].info.trim();
+                const title = match && match[2] ? match[2].slice(1, -1) : type;
                 const className = darkTheme() ? `${type} admonition` : `${type} light admonition`;
-
-                // opening tag
                 return `<div class="${className}"><p class="admonition-title">${title}</p>`;
             } else {
-                // closing tag
                 return '</div>\n';
             }
         }
@@ -65,6 +67,20 @@ export function markdownItAdmonition(md: MarkdownIt) {
     const defaultAdmonOpenRenderer = md.renderer.rules.admonition_open || proxy;
 
     md.use(markdownItAdmon, {
+        validate: function(params: any) {
+            const config = vscode.workspace.getConfiguration(configSection);
+            const enabled = config.get('enable', true);
+            const mode = config.get('mode', 'relaxed');
+            if (!enabled) {
+                return false;
+            }
+            if (mode === 'relaxed' || mode === 'strict-mkdocs') {
+                const [tag = ''] = params.trim().split(' ', 1);
+                return !!tag;
+            } else {
+                return false;
+            }
+        },
     });
 
     md.renderer.rules.collapsible_open = function(tokens, idx, options, env, self) {

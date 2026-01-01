@@ -42,6 +42,12 @@
           "type": "boolean",
           "default": true,
           "description": "Enable preview of Markdown Admonitions"
+        },
+        "markdownAdmonitions.mode": {
+          "type": "string",
+          "default": "relaxed",
+          "enum": ["relaxed", "strict-docusaurus", "strict-mkdocs"],
+          "description": "Admonition rendering mode: relaxed (default), strict-docusaurus, or strict-mkdocs."
         }
       }
     },
@@ -58,7 +64,7 @@
   },
   "dependencies": {
     "markdown-it": "^14.1.0",
-    "markdown-it-admon-collapsible": "^1.9.4",
+    "markdown-it-admon-collapsible": "^1.9.5",
     "markdown-it-container": "^4.0.0"
   },
   "devDependencies": {
