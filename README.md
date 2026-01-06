@@ -1,7 +1,8 @@
 # Markdown Admonitions
 
 [![Build Status](https://pokerhandboken.visualstudio.com/github-builder/_apis/build/status%2Ftomasdahlqvist.markdown-admonitions?branchName=main)](https://pokerhandboken.visualstudio.com/github-builder/_build/latest?definitionId=1&branchName=main)
-[![Marketplace](https://vsmarketplacebadges.dev/version/tomasdahlqvist.markdown-admonitions.svg)](https://marketplace.visualstudio.com/items?itemName=TomasDahlqvist.markdown-admonitions)
+[![Marketplace](https://img.shields.io/visual-studio-marketplace/v/TomasDahlqvist.markdown-admonitions?label=Visual%20Studio%20Marketplace)](https://marketplace.visualstudio.com/items?itemName=TomasDahlqvist.markdown-admonitions)
+[![Open VSX](https://img.shields.io/open-vsx/v/tomasdahlqvist/markdown-admonitions)](https://open-vsx.org/extension/tomasdahlqvist/markdown-admonitions)
 
 Enables Docusaurus-style and MkDocs-style admonitions in the VS Code preview.
 
@@ -49,6 +50,7 @@ Runs in Visual Studio Code.
 This extension contributes the following settings:
 
 * `markdownAdmonitions.enable`: Enable/disable this extension.
+* `markdownAdmonitions.mode`: Set to what kinds of admonitions to render.
 
 ## Known Issues
 
