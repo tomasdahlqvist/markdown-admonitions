@@ -1,7 +1,7 @@
 import * as vscode from 'vscode';
-import * as MarkdownIt from 'markdown-it';
-import * as markdownItContainer from 'markdown-it-container';
-import * as markdownItAdmon from 'markdown-it-admon-collapsible';
+import MarkdownIt from 'markdown-it';
+import markdownItContainer from 'markdown-it-container';
+import markdownItAdmon from 'markdown-it-admon-collapsible';
 
 const configSection = 'markdownAdmonitions';
 

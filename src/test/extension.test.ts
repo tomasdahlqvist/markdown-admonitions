@@ -1,9 +1,9 @@
-import * as assert from 'assert';
-import * as MarkdownIt from 'markdown-it';
-import * as extension from '../extension';
+import assert from 'assert';
+import MarkdownIt from 'markdown-it';
+import { markdownItAdmonition } from '../extension';
 import * as vscode from 'vscode';
 
-const md = extension.markdownItAdmonition(new MarkdownIt());
+const md = markdownItAdmonition(new MarkdownIt());
 
 suite('Extension Test Suite', () => {
 
