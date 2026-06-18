@@ -29,7 +29,6 @@ summary.admonition-title::after {
   font-weight: bold;
   display: block;
   margin-bottom: 10px;
-  text-transform: uppercase;
 }
 
 /* Unknown MkDocs displayed as info, unknown Docusaurus are not matched */
