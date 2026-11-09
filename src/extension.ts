@@ -29,31 +29,58 @@ const darkTheme = () => vscode.window.activeColorTheme.kind === vscode.ColorThem
 // Docusaurus keywords plus mkdocs at the end:
 const match_regexp = /^(note|tip|info|warning|danger)(\[[^\]]*\])?$/;
 
+// Nextcloud keywords mapped to their Docusaurus equivalents:
+const nextcloudAliases: { [key: string]: string } = {
+    warn: 'warning',
+    success: 'tip',
+    error: 'danger',
+    question: 'note',
+};
+const nextcloud_regexp = /^(warn|success|error|question)(\[[^\]]*\])?$/;
+
+const nextcloudEnabled = () =>
+    vscode.workspace.getConfiguration(configSection).get<string>('nextcloud', 'disable') === 'enable';
+
+// Returns [type, title] for a container info string, or null if not matched.
+function parseAdmonition(info: string): [string, string] | null {
+    const trimmed = info.trim();
+    let match = trimmed.match(match_regexp);
+    let type: string | undefined = match ? match[1] : undefined;
+    if (!match && nextcloudEnabled()) {
+        match = trimmed.match(nextcloud_regexp);
+        type = match ? nextcloudAliases[match[1]] : undefined;
+    }
+    if (!match || !type) {
+        return null;
+    }
+    const title = match[2] ? match[2].slice(1, -1) : type;
+    return [type, title];
+}
+
 export function markdownItAdmonition(md: MarkdownIt) {
     // Register admonition-block container with dynamic validation
     md.use(markdownItContainer, 'admonition-block', {
         validate: function(params: any) {
             const config = vscode.workspace.getConfiguration(configSection);
             const enabled = config.get('enable', true);
-            const mode = config.get('mode', 'relaxed');
+            const mode = config.get<string>('mode', 'relaxed');
             if (!enabled) {
                 return false;
             }
-            if (mode === 'relaxed') {
-                return params.trim().match(match_regexp);
-            } else if (mode === 'strict-docusaurus') {
-                return ['note','tip','info','warning','danger'].includes(params);
+            if (mode === 'strict-docusaurus') {
+                return ['note','tip','info','warning','danger'].includes(params) ||
+                    (nextcloudEnabled() && Object.keys(nextcloudAliases).includes(params));
             } else if (mode === 'strict-mkdocs') {
                 return false;
             } else {
-                return params.trim().match(match_regexp);
+                return parseAdmonition(params) !== null;
             }
         },
         render: function(tokens : any, idx : any) {
             if (tokens[idx].nesting === 1) {
-                const match = tokens[idx].info.trim().match(match_regexp);
-                const type = match ? match[1] : tokens[idx].info.trim();
-                const title = match && match[2] ? match[2].slice(1, -1) : type;
+                const parsed = parseAdmonition(tokens[idx].info);
+                const type = parsed ? parsed[0] : tokens[idx].info.trim();
+                const title = parsed ? parsed[1] : type;
                 const className = darkTheme() ? `${type} admonition` : `${type} light admonition`;
                 return `<div class="${className}"><p class="admonition-title">${title}</p>`;
             } else {
@@ -70,7 +97,7 @@ export function markdownItAdmonition(md: MarkdownIt) {
         validate: function(params: any) {
             const config = vscode.workspace.getConfiguration(configSection);
             const enabled = config.get('enable', true);
-            const mode = config.get('mode', 'relaxed');
+            const mode = config.get<string>('mode', 'relaxed');
             if (!enabled) {
                 return false;
             }

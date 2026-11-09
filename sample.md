@@ -153,3 +153,25 @@ Adding a + after the ??? token renders the block expanded:
 :::unknown
 *here be dragons*
 :::
+
+## Nextcloud admonitions (requires `"markdownAdmonitions.nextcloud": "enable"`)
+
+::: info
+Nextcloud info
+:::
+
+::: warn
+Nextcloud warn (rendered as warning)
+:::
+
+::: success
+Nextcloud success (rendered as tip)
+:::
+
+::: error
+Nextcloud error (rendered as danger)
+:::
+
+::: question
+Nextcloud question (rendered as note)
+:::
