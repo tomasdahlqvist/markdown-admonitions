@@ -39,7 +39,7 @@ const nextcloudAliases: { [key: string]: string } = {
 const nextcloud_regexp = /^(warn|success|error|question)(\[[^\]]*\])?$/;
 
 const nextcloudEnabled = () =>
-    vscode.workspace.getConfiguration(configSection).get('nextcloud', 'disable') === 'enable';
+    vscode.workspace.getConfiguration(configSection).get<string>('nextcloud', 'disable') === 'enable';
 
 // Returns [type, title] for a container info string, or null if not matched.
 function parseAdmonition(info: string): [string, string] | null {
@@ -63,7 +63,7 @@ export function markdownItAdmonition(md: MarkdownIt) {
         validate: function(params: any) {
             const config = vscode.workspace.getConfiguration(configSection);
             const enabled = config.get('enable', true);
-            const mode = config.get('mode', 'relaxed');
+            const mode = config.get<string>('mode', 'relaxed');
             if (!enabled) {
                 return false;
             }
@@ -97,7 +97,7 @@ export function markdownItAdmonition(md: MarkdownIt) {
         validate: function(params: any) {
             const config = vscode.workspace.getConfiguration(configSection);
             const enabled = config.get('enable', true);
-            const mode = config.get('mode', 'relaxed');
+            const mode = config.get<string>('mode', 'relaxed');
             if (!enabled) {
                 return false;
             }

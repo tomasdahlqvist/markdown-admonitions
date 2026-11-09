@@ -12,7 +12,7 @@
     "url": "https://github.com/tomasdahlqvist/markdown-admonitions.git"
   },
   "engines": {
-    "vscode": "^1.54.0"
+    "vscode": "^1.120.0"
   },
   "categories": [
     "Formatters"
