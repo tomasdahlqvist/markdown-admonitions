@@ -83,12 +83,12 @@ suite('Extension Test Suite', () => {
 
     test('Strict Docusaurus accepts canonical keywords without titles', async () => {
         const result = await renderWithMode('strict-docusaurus', `:::note\nText\n:::`);
-        assert.strictEqual(result, `<div class="note admonition"><p class="admonition-title">note</p><p>Text</p>\n</div>\n`);
+        assert.strictEqual(result, `<div class="note admonition strict-docusaurus"><p class="admonition-title">note</p><p>Text</p>\n</div>\n`);
     });
 
     test('Strict Docusaurus supports Markdown titles and ID/class attributes', async () => {
         const result = await renderWithMode('strict-docusaurus', `:::note[Remember **this**]{#important .custom-class}\nText\n:::`);
-        assert.strictEqual(result, `<div id="important" class="note admonition custom-class"><p class="admonition-title">Remember <strong>this</strong></p><p>Text</p>\n</div>\n`);
+        assert.strictEqual(result, `<div id="important" class="note admonition custom-class strict-docusaurus"><p class="admonition-title">Remember <strong>this</strong></p><p>Text</p>\n</div>\n`);
     });
 
     test('Strict Docusaurus rejects unknown attributes', async () => {
@@ -99,6 +99,11 @@ suite('Extension Test Suite', () => {
     test('Relaxed mode maps Nextcloud keywords to Docusaurus styles', async () => {
         const result = await renderWithMode('relaxed', `:::success\nText\n:::`);
         assert.strictEqual(result, `<div class="tip admonition"><p class="admonition-title">tip</p><p>Text</p>\n</div>\n`);
+    });
+
+    test('Relaxed mode keeps generated Docusaurus titles lowercase', async () => {
+        const result = await renderWithMode('relaxed', `:::note\nText\n:::`);
+        assert.strictEqual(result, `<div class="note admonition"><p class="admonition-title">note</p><p>Text</p>\n</div>\n`);
     });
 
     test('Strict Nextcloud maps all keywords to Docusaurus styles', async () => {

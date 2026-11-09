@@ -31,6 +31,10 @@ summary.admonition-title::after {
   margin-bottom: 10px;
 }
 
+.markdown-body .admonition.strict-docusaurus > .admonition-title {
+  text-transform: uppercase;
+}
+
 /* Unknown MkDocs displayed as info, unknown Docusaurus are not matched */
 .markdown-body .admonition-title::before {
   content: "ℹ️ ";

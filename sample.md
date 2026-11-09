@@ -162,6 +162,8 @@ In `strict-docusaurus` mode, titles are optional and can contain Markdown:
 Custom titles can contain Markdown formatting.
 :::
 
+Strict Docusaurus mode displays admonition titles in uppercase. In relaxed mode, generated titles remain lowercase.
+
 ## Nextcloud admonitions
 
 Set `markdownAdmonitions.mode` to `strict-nextcloud` to accept only Nextcloud admonition keywords:

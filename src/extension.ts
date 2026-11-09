@@ -177,6 +177,9 @@ export function markdownItAdmonition(md: MarkdownIt) {
                 const type = parsed ? parsed.type : tokens[idx].info.trim();
                 const title = parsed?.markdownTitle ? md.renderInline(parsed.title) : parsed?.title ?? type;
                 const classNames = [type, 'admonition', ...(parsed?.classes ?? [])];
+                if (mode === 'strict-docusaurus') {
+                    classNames.push('strict-docusaurus');
+                }
                 if (!darkTheme()) {
                     classNames.push('light');
                 }

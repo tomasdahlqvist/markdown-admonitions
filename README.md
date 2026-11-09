@@ -58,7 +58,7 @@ This extension contributes the following settings:
 
 Nextcloud keywords can also be used in `relaxed` mode. For example, `::: warn` is rendered as a warning admonition.
 
-In Docusaurus mode, custom titles go in optional square brackets, and IDs/classes go in optional braces:
+In `strict-docusaurus` mode, titles are displayed in uppercase to match Docusaurus. In `relaxed` mode, generated titles remain lowercase and custom titles keep their authored casing. Custom Docusaurus titles go in optional square brackets, and IDs/classes go in optional braces:
 
 ```md
 :::note[Remember **this**]{#important .custom-class}
