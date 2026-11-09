@@ -52,6 +52,19 @@
             "strict-mkdocs"
           ],
           "description": "Admonition rendering mode: relaxed (default), strict-docusaurus, or strict-mkdocs."
+        },
+        "markdownAdmonitions.nextcloud": {
+          "type": "string",
+          "default": "disable",
+          "enum": [
+            "enable",
+            "disable"
+          ],
+          "enumDescriptions": [
+            "Treat Nextcloud admonitions as Docusaurus ones (info, warn = warning, success = tip, error = danger, question = note).",
+            "Only Docusaurus/MkDocs keywords are recognized."
+          ],
+          "description": "Enable Nextcloud admonition keywords (::: info, ::: warn, ::: success, ::: error, ::: question) mapped to their Docusaurus equivalents."
         }
       }
     },

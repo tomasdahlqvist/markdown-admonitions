@@ -55,3 +55,15 @@ This extension contributes the following settings:
 ## Known Issues
 
 None.
+
+## Nextcloud admonitions
+
+Set `"markdownAdmonitions.nextcloud": "enable"` to also recognize Nextcloud keywords, rendered as their Docusaurus equivalents:
+
+| Nextcloud | Docusaurus |
+|-----------|------------|
+| `info`    | `info`     |
+| `warn`    | `warning`  |
+| `success` | `tip`      |
+| `error`   | `danger`   |
+| `question`| `note`     |
