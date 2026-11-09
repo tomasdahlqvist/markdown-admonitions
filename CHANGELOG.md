@@ -5,6 +5,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.0]
+
+### Added
+
+- Added a `strict-nextcloud` parsing mode; the existing `relaxed`, `strict-docusaurus`, and `strict-mkdocs` modes remain available.
+- Added Nextcloud admonition keywords and mappings in relaxed and strict Nextcloud modes.
+- Expanded strict Docusaurus support for Markdown titles and ID/class attributes.
+
+### Changed
+
+- Replaced separate syntax options with a single mode setting.
+- Strict Docusaurus mode displays admonition titles in uppercase; relaxed mode leaves generated titles lowercase and preserves custom-title casing.
+- Updated dependencies and CI to use Node.js 22.
+
 ## [0.9.2]
 
 ### Fixed
