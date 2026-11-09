@@ -154,24 +154,34 @@ Adding a + after the ??? token renders the block expanded:
 *here be dragons*
 :::
 
-## Nextcloud admonitions (requires `"markdownAdmonitions.nextcloud": "enable"`)
+## Docusaurus custom titles
 
-::: info
-Nextcloud info
+In `strict-docusaurus` mode, titles are optional and can contain Markdown:
+
+:::note[Remember **this**]{#important .custom-class}
+Custom titles can contain Markdown formatting.
 :::
 
+## Nextcloud admonitions
+
+Set `markdownAdmonitions.mode` to `strict-nextcloud` to accept only Nextcloud admonition keywords:
+
 ::: warn
-Nextcloud warn (rendered as warning)
+Rendered using the Docusaurus warning style.
+:::
+
+::: info
+Rendered using the Docusaurus info style.
 :::
 
 ::: success
-Nextcloud success (rendered as tip)
+Rendered using the Docusaurus tip style.
 :::
 
 ::: error
-Nextcloud error (rendered as danger)
+Rendered using the Docusaurus danger style.
 :::
 
 ::: question
-Nextcloud question (rendered as note)
+Rendered using the Docusaurus note style.
 :::

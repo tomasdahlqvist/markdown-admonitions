@@ -12,7 +12,7 @@
     "url": "https://github.com/tomasdahlqvist/markdown-admonitions.git"
   },
   "engines": {
-    "vscode": "^1.120.0"
+    "vscode": "^1.54.0"
   },
   "categories": [
     "Formatters"
@@ -49,22 +49,16 @@
           "enum": [
             "relaxed",
             "strict-docusaurus",
+            "strict-nextcloud",
             "strict-mkdocs"
           ],
-          "description": "Admonition rendering mode: relaxed (default), strict-docusaurus, or strict-mkdocs."
-        },
-        "markdownAdmonitions.nextcloud": {
-          "type": "string",
-          "default": "disable",
-          "enum": [
-            "enable",
-            "disable"
-          ],
           "enumDescriptions": [
-            "Treat Nextcloud admonitions as Docusaurus ones (info, warn = warning, success = tip, error = danger, question = note).",
-            "Only Docusaurus/MkDocs keywords are recognized."
+            "Accept Docusaurus and Nextcloud fenced admonitions, plus MkDocs admonitions.",
+            "Accept Docusaurus keywords with optional Markdown titles, IDs, and classes.",
+            "Accept only Nextcloud keywords and map them to Docusaurus styles.",
+            "Accept MkDocs-style admonitions."
           ],
-          "description": "Enable Nextcloud admonition keywords (::: info, ::: warn, ::: success, ::: error, ::: question) mapped to their Docusaurus equivalents."
+          "description": "Admonition parsing mode. Defaults to relaxed."
         }
       }
     },
@@ -90,11 +84,11 @@
     "@types/markdown-it-container": "^4.0.0",
     "@types/mocha": "^10.0.10",
     "@types/node": "22.x",
-    "@types/vscode": "^1.120.0",
+    "@types/vscode": "^1.54.0",
     "@typescript-eslint/eslint-plugin": "^8.61.0",
     "@typescript-eslint/parser": "^8.61.0",
     "@vscode/test-cli": "^0.0.12",
-    "@vscode/test-electron": "^3.0.0",
+    "@vscode/test-electron": "^3.1.0",
     "@vscode/vsce": "^3.9.2",
     "eslint": "^10.4.1",
     "mocha": "^11.7.6",

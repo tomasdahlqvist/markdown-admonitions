@@ -5,6 +5,20 @@ import markdownItAdmon from 'markdown-it-admon-collapsible';
 
 const configSection = 'markdownAdmonitions';
 
+type AdmonitionMode =
+    | 'relaxed'
+    | 'strict-docusaurus'
+    | 'strict-nextcloud'
+    | 'strict-mkdocs';
+
+type ParsedAdmonition = {
+    type: string;
+    title: string;
+    markdownTitle: boolean;
+    id?: string;
+    classes: string[];
+};
+
 export function activate(context: vscode.ExtensionContext) {
 
     // On Mac there is no automatic call to render when the theme changes, so we need to manually refresh the preview
@@ -26,35 +40,121 @@ export function activate(context: vscode.ExtensionContext) {
 
 const darkTheme = () => vscode.window.activeColorTheme.kind === vscode.ColorThemeKind.Dark;
 
-// Docusaurus keywords plus mkdocs at the end:
-const match_regexp = /^(note|tip|info|warning|danger)(\[[^\]]*\])?$/;
-
-// Nextcloud keywords mapped to their Docusaurus equivalents:
-const nextcloudAliases: { [key: string]: string } = {
+const nextcloudRegExp = /^(info|warn|success|error|question)(\[[^\]]*\])?$/;
+const nextcloudAliases: Record<string, string> = {
     warn: 'warning',
     success: 'tip',
     error: 'danger',
     question: 'note',
 };
-const nextcloud_regexp = /^(warn|success|error|question)(\[[^\]]*\])?$/;
 
-const nextcloudEnabled = () =>
-    vscode.workspace.getConfiguration(configSection).get<string>('nextcloud', 'disable') === 'enable';
+function parseAttributes(value: string): { id?: string; classes: string[] } | null {
+    let id: string | undefined;
+    const classes: string[] = [];
+    const tokens = value.trim().split(/\s+/).filter(Boolean);
 
-// Returns [type, title] for a container info string, or null if not matched.
-function parseAdmonition(info: string): [string, string] | null {
-    const trimmed = info.trim();
-    let match = trimmed.match(match_regexp);
-    let type: string | undefined = match ? match[1] : undefined;
-    if (!match && nextcloudEnabled()) {
-        match = trimmed.match(nextcloud_regexp);
-        type = match ? nextcloudAliases[match[1]] : undefined;
+    for (const token of tokens) {
+        const name = token.slice(1);
+        if (!/^[A-Za-z0-9_-]+$/.test(name)) {
+            return null;
+        }
+
+        if (token.startsWith('#')) {
+            if (id) {
+                return null;
+            }
+            id = name;
+        } else if (token.startsWith('.')) {
+            classes.push(name);
+        } else {
+            return null;
+        }
     }
-    if (!match || !type) {
+
+    return { id, classes };
+}
+
+function parseDocusaurusAdmonition(info: string): ParsedAdmonition | null {
+    const match = info.trim().match(/^(note|tip|info|warning|danger)(.*)$/);
+    if (!match) {
         return null;
     }
-    const title = match[2] ? match[2].slice(1, -1) : type;
-    return [type, title];
+
+    let rest = match[2].trimStart();
+    let title: string | undefined;
+    let attributes: { id?: string; classes: string[] } = { classes: [] };
+
+    if (rest.startsWith('[')) {
+        let depth = 0;
+        let closingIndex = -1;
+        for (let index = 0; index < rest.length; index++) {
+            if (rest[index] === '\\') {
+                index++;
+            } else if (rest[index] === '[') {
+                depth++;
+            } else if (rest[index] === ']' && --depth === 0) {
+                closingIndex = index;
+                break;
+            }
+        }
+        if (closingIndex < 0) {
+            return null;
+        }
+        title = rest.slice(1, closingIndex);
+        rest = rest.slice(closingIndex + 1).trimStart();
+    }
+
+    if (rest.startsWith('{')) {
+        const closingIndex = rest.indexOf('}');
+        if (closingIndex < 0) {
+            return null;
+        }
+        const parsedAttributes = parseAttributes(rest.slice(1, closingIndex));
+        if (!parsedAttributes) {
+            return null;
+        }
+        attributes = parsedAttributes;
+        rest = rest.slice(closingIndex + 1).trim();
+    }
+
+    if (rest) {
+        return null;
+    }
+
+    return {
+        type: match[1],
+        title: title ?? match[1],
+        markdownTitle: title !== undefined,
+        ...attributes,
+    };
+}
+
+function parseNextcloudAdmonition(info: string): ParsedAdmonition | null {
+    const match = info.trim().match(nextcloudRegExp);
+    if (!match) {
+        return null;
+    }
+
+    const type = nextcloudAliases[match[1]] ?? match[1];
+    return {
+        type,
+        title: match[2] ? match[2].slice(1, -1) : type,
+        markdownTitle: false,
+        classes: [],
+    };
+}
+
+function parseAdmonition(info: string, mode: AdmonitionMode): ParsedAdmonition | null {
+    switch (mode) {
+    case 'relaxed':
+        return parseDocusaurusAdmonition(info) ?? parseNextcloudAdmonition(info);
+    case 'strict-docusaurus':
+        return parseDocusaurusAdmonition(info);
+    case 'strict-nextcloud':
+        return parseNextcloudAdmonition(info);
+    case 'strict-mkdocs':
+        return null;
+    }
 }
 
 export function markdownItAdmonition(md: MarkdownIt) {
@@ -63,26 +163,25 @@ export function markdownItAdmonition(md: MarkdownIt) {
         validate: function(params: any) {
             const config = vscode.workspace.getConfiguration(configSection);
             const enabled = config.get('enable', true);
-            const mode = config.get<string>('mode', 'relaxed');
+            const mode = config.get<AdmonitionMode>('mode', 'relaxed');
             if (!enabled) {
                 return false;
             }
-            if (mode === 'strict-docusaurus') {
-                return ['note','tip','info','warning','danger'].includes(params) ||
-                    (nextcloudEnabled() && Object.keys(nextcloudAliases).includes(params));
-            } else if (mode === 'strict-mkdocs') {
-                return false;
-            } else {
-                return parseAdmonition(params) !== null;
-            }
+            return parseAdmonition(params, mode) !== null;
         },
         render: function(tokens : any, idx : any) {
             if (tokens[idx].nesting === 1) {
-                const parsed = parseAdmonition(tokens[idx].info);
-                const type = parsed ? parsed[0] : tokens[idx].info.trim();
-                const title = parsed ? parsed[1] : type;
-                const className = darkTheme() ? `${type} admonition` : `${type} light admonition`;
-                return `<div class="${className}"><p class="admonition-title">${title}</p>`;
+                const config = vscode.workspace.getConfiguration(configSection);
+                const mode = config.get<AdmonitionMode>('mode', 'relaxed');
+                const parsed = parseAdmonition(tokens[idx].info, mode);
+                const type = parsed ? parsed.type : tokens[idx].info.trim();
+                const title = parsed?.markdownTitle ? md.renderInline(parsed.title) : parsed?.title ?? type;
+                const classNames = [type, 'admonition', ...(parsed?.classes ?? [])];
+                if (!darkTheme()) {
+                    classNames.push('light');
+                }
+                const id = parsed?.id ? ` id="${parsed.id}"` : '';
+                return `<div${id} class="${classNames.join(' ')}"><p class="admonition-title">${title}</p>`;
             } else {
                 return '</div>\n';
             }
@@ -97,7 +196,7 @@ export function markdownItAdmonition(md: MarkdownIt) {
         validate: function(params: any) {
             const config = vscode.workspace.getConfiguration(configSection);
             const enabled = config.get('enable', true);
-            const mode = config.get<string>('mode', 'relaxed');
+            const mode = config.get<AdmonitionMode>('mode', 'relaxed');
             if (!enabled) {
                 return false;
             }
