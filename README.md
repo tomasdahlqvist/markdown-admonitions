@@ -43,7 +43,8 @@ Based on [markdown-it](https://github.com/markdown-it/markdown-it), [markdown-it
 
 ## Requirements
 
-Runs in Visual Studio Code.
+Requires Visual Studio Code 1.95.0 or newer. The minimum supported version and
+current Stable are tested in CI.
 
 ## Extension Settings
 

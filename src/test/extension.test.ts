@@ -1,5 +1,5 @@
 import assert from 'assert';
-import MarkdownIt from 'markdown-it';
+import MarkdownIt, { type MarkdownIt as MarkdownItParser } from 'markdown-it';
 import { markdownItAdmonition } from '../extension';
 import * as vscode from 'vscode';
 
@@ -24,6 +24,20 @@ suite('Extension Test Suite', () => {
     suiteTeardown(async function() {
         this.timeout(10000);
         await config.update('mode', originalMode, vscode.ConfigurationTarget.Global);
+    });
+
+    test('Activation extends the supplied Markdown-it parser', async () => {
+        const extension = vscode.extensions.getExtension<{
+            extendMarkdownIt(parser: MarkdownItParser): MarkdownItParser;
+        }>('tomasdahlqvist.markdown-admonitions');
+        assert.ok(extension);
+        const api = await extension.activate();
+        const parser = new MarkdownIt();
+        assert.strictEqual(api.extendMarkdownIt(parser), parser);
+        assert.strictEqual(
+            parser.render(':::note\nText\n:::'),
+            '<div class="note admonition"><p class="admonition-title">note</p><p>Text</p>\n</div>\n'
+        );
     });
 
     const tests = [

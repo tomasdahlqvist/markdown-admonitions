@@ -1,5 +1,5 @@
 import * as vscode from 'vscode';
-import MarkdownIt from 'markdown-it';
+import type { MarkdownIt, RendererRule, Token } from 'markdown-it';
 import markdownItContainer from 'markdown-it-container';
 import markdownItAdmon from 'markdown-it-admon-collapsible';
 
@@ -160,7 +160,7 @@ function parseAdmonition(info: string, mode: AdmonitionMode): ParsedAdmonition |
 export function markdownItAdmonition(md: MarkdownIt) {
     // Register admonition-block container with dynamic validation
     md.use(markdownItContainer, 'admonition-block', {
-        validate: function(params: any) {
+        validate: function(params: string) {
             const config = vscode.workspace.getConfiguration(configSection);
             const enabled = config.get('enable', true);
             const mode = config.get<AdmonitionMode>('mode', 'relaxed');
@@ -169,7 +169,7 @@ export function markdownItAdmonition(md: MarkdownIt) {
             }
             return parseAdmonition(params, mode) !== null;
         },
-        render: function(tokens : any, idx : any) {
+        render: function(tokens: Token[], idx: number) {
             if (tokens[idx].nesting === 1) {
                 const config = vscode.workspace.getConfiguration(configSection);
                 const mode = config.get<AdmonitionMode>('mode', 'relaxed');
@@ -192,11 +192,11 @@ export function markdownItAdmonition(md: MarkdownIt) {
     });
 
     //probably not necessary, could hide a problem with the markdown-it-admon plugin
-    const proxy = (tokens:any, idx:any, options:any, env:any, self:any) => self.renderToken(tokens, idx, options);
+    const proxy: RendererRule = (tokens, idx, options, env, self) => self.renderToken(tokens, idx, options);
     const defaultAdmonOpenRenderer = md.renderer.rules.admonition_open || proxy;
 
     md.use(markdownItAdmon, {
-        validate: function(params: any) {
+        validate: function(params: string) {
             const config = vscode.workspace.getConfiguration(configSection);
             const enabled = config.get('enable', true);
             const mode = config.get<AdmonitionMode>('mode', 'relaxed');
