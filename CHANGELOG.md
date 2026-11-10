@@ -19,6 +19,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   compatibility package, obsolete Markdown-it typings, and redundant direct Mocha
   dependencies. Strict compilation and integration tests remain the validation baseline.
 - Updated GitHub Actions and switched CI installs to `npm ci`.
+- Replaced the deprecated Azure Pipelines Node installer with `UseNode@1`,
+  retaining Node.js 22.
+- Pinned the Azure Pipelines Linux image to Ubuntu 26.04 to avoid automatic
+  Ubuntu major-version migrations.
 - Excluded compiled tests from extension packages.
 
 ## [1.0.0]
